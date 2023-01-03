@@ -1,24 +1,42 @@
 import dotenv from "dotenv";
-import app from "./app";
+import mongoose from "mongoose";
+
+import app from "./app.js";
 
 process.on("uncaughtException", (err) => {
-	console.log("UNCAUGHT EXCEPTION! Shutting down...");
-	console.log(err.name, err.message);
-	process.exit(1);
+  console.log("UNCAUGHT EXCEPTION! Shutting down...");
+  console.log(err.name, err.message);
+  process.exit(1);
 });
 
-dotenv.config();
+dotenv.config({ path: "./.env" });
 
-const port = process.env.PORT || 3000;
+//local DB connection
+const DB = process.env.DB_LOCAL;
 
-const server = app.listen(port, () => {
-	console.log(`Server is running on port ${port}...`);
+//connect to mongo
+
+//to suppress a warning
+mongoose.set("strictQuery", false);
+
+mongoose
+  .connect(DB)
+  .then((connection) => {
+    console.log("DB connection is successful");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+const PORT = process.env.PORT || 8000;
+
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}...`);
 });
 
 process.on("unhandledRejection", (err) => {
-	console.log("UNHANDLED REJECTION! Shutting down...");
-	console.log(err.name, err.message);
-	server.close(() => {
-		process.exit(1);
-	});
+  console.log("UNHANDLED REJECTION! Shutting down...");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
 });
