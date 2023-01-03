@@ -1,9 +1,9 @@
 import express from "express";
 import morgan from "morgan";
-import rateLimiter from "express-rate-limiter";
+import rateLimiter from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import hpp from "hpp";
-import mogulRentalRoutes from "./routes/rentalRoutes.js";
+import rentalRouter from "./routes/rentalRoutes.js";
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(hpp());
 
-app.use("/api/v1/mogulRental", mogulRentalRoutes);
+app.use("/api/v1/Rental", rentalRouter);
 
 app.all("*", (req, res) => {
 	res.status(400).json({
@@ -30,4 +30,4 @@ app.all("*", (req, res) => {
 	});
 });
 
-export default app;
+export {app};
