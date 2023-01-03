@@ -4,14 +4,15 @@ import ProposalModel from "../model/proposalModel.js";
 import votingModel from "../model/votingModel.js";
 import MogulDAOMarkleTree from "../utils/markleTree.js";
 import { filterObj } from "../utils/helper.js";
-const settings = {
-  apiKey: "-Pa7HS3UWzLPuQ0D1Ttf9mSPcNfrXtvM", // Replace with your Alchemy API Key.
-  network: Network.MATIC_MUMBAI, // Replace with your network.
-};
-
-const alchemy = new Alchemy(settings);
 
 const getVotersDetails = catchAsync(async (req, res, next) => {
+  // alchemy settings
+  const settings = {
+    apiKey: "-Pa7HS3UWzLPuQ0D1Ttf9mSPcNfrXtvM", // Replace with your Alchemy API Key.
+    network: Network.MATIC_MUMBAI, // Replace with your network.
+  };
+  const alchemy = new Alchemy(settings);
+
   //filter the req.body data
   const newBody = filterObj(req.body, "tokenId", "target", "owner");
 
