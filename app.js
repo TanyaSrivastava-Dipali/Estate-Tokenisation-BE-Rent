@@ -3,7 +3,8 @@ import morgan from "morgan";
 import rateLimiter from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import hpp from "hpp";
-import rentalRouter from "./routes/rentalRoutes.js";
+// eslint-disable-next-line import/extensions
+import Router from "./routes/propertyRoutes.js";
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(hpp());
 
-app.use("/api/v1/Rental", rentalRouter);
+app.use("/api/v1/property/", Router);
 
 app.all("*", (req, res) => {
 	res.status(400).json({
@@ -30,4 +31,4 @@ app.all("*", (req, res) => {
 	});
 });
 
-export {app};
+export default app;

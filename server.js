@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import {app} from "./app.js";
-
+// eslint-disable-next-line import/extensions
+import app from "./app.js";
 
 process.on("uncaughtException", (err) => {
 	console.log("UNCAUGHT EXCEPTION! Shutting down...");
