@@ -1,4 +1,5 @@
 import express from "express";
+// eslint-disable-next-line import/extensions
 import { addVote, getVotersDetails } from "../controllers/voterController.js";
 
 const voterRouter = express.Router();

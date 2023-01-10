@@ -4,8 +4,10 @@ import * as PropertyController from "../controllers/PropertyController.js";
 
 const rentalRouter = express.Router();
 
-Router.route("/CreateProperty").post(PropertyController.createNewProperty);
-Router.route("/changeListingStatus/:propertyTokenId").patch(PropertyController.changeListingStatus);
-Router.route("/getPropertystatus/:propertyTokenId").get(PropertyController.getPropertystatus);
-Router.route("/getAllPropertystatus").get(PropertyController.getAllPropertystatus);
+rentalRouter.route("/CreateProperty").post(PropertyController.createNewProperty);
+rentalRouter
+	.route("/changeListingStatus/:propertyTokenId")
+	.patch(PropertyController.changeListingStatus);
+rentalRouter.route("/getPropertystatus/:propertyTokenId").get(PropertyController.getPropertystatus);
+rentalRouter.route("/getAllPropertystatus").get(PropertyController.getAllPropertystatus);
 export default rentalRouter;

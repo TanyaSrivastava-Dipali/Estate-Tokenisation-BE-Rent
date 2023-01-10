@@ -1,8 +1,9 @@
 import express from "express";
 import {
-  addNewProposal,
-  getAllProposal,
-  executeProposal,
+	addNewProposal,
+	getAllProposal,
+	executeProposal,
+	// eslint-disable-next-line import/extensions
 } from "../controllers/proposalController.js";
 
 const proposeRouter = express.Router();
