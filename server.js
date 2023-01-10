@@ -1,6 +1,7 @@
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-
+// eslint-disable-next-line import/extensions
 import app from "./app.js";
 
 process.on("uncaughtException", (err) => {
@@ -8,6 +9,7 @@ process.on("uncaughtException", (err) => {
   console.log(err.name, err.message);
   process.exit(1);
 });
+
 
 dotenv.config({ path: "./.env" });
 
@@ -18,6 +20,16 @@ const DB = process.env.DB_LOCAL;
 
 //to suppress a warning
 mongoose.set("strictQuery", false);
+dotenv.config();
+mongoose
+	.connect(process.env.LEDGER_DATABASE)
+	// eslint-disable-next-line no-unused-vars
+	.then((con) => {
+		console.log("DB connection successful!");
+	})
+	.catch((err) => {
+		console.log(`DB connection error ${err}`);
+	});
 
 mongoose
   .connect(DB)
