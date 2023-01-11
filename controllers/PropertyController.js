@@ -3,10 +3,10 @@ import PropertyModel from "../models/PropertyModel.js";
 
 export const createNewProperty = async (req, res) => {
 	try {
-		const newProperty = new PropertyModel({
-			propertyTokenId: req.body.propertyTokenId,
-		});
-		const property = await newProperty.save();
+		// const newProperty = new PropertyModel({
+		// 	propertyTokenId: req.body.propertyTokenId,
+		// });
+		const property = await PropertyModel.create(req.body);
 		res.status(201).json({
 			status: "Success",
 			message: "property created successfully",
