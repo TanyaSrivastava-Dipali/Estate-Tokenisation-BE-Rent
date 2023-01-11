@@ -2,8 +2,8 @@
 /* eslint-disable import/extensions */
 // import { Network, Alchemy } from "alchemy-sdk";
 import catchAsync from "../utils/catchAsync.js";
-import ProposalModel from "../model/proposalModel.js";
-import votingModel from "../model/votingModel.js";
+import ProposalModel from "../models/proposalModel.js";
+import votingModel from "../models/votingModel.js";
 import MogulDAOMarkleTree from "../utils/markleTree.js";
 import { filterObj } from "../utils/helper.js";
 

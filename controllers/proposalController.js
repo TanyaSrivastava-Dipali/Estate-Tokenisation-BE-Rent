@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions
-import ProposalModel from "../model/proposalModel.js";
+import ProposalModel from "../models/proposalModel.js";
 // eslint-disable-next-line import/extensions
 import catchAsync from "../utils/catchAsync.js";
 // eslint-disable-next-line import/extensions
