@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable func-names */
 import mongoose from "mongoose";
 
@@ -16,6 +17,22 @@ const PropertySchema = new mongoose.Schema({
 		type: Boolean,
 		required: true,
 		default: true,
+	},
+	uri: {
+		type: String,
+		required: [true, "A URI is required"],
+	},
+	propertyName: {
+		type: String,
+		required: [true, "A property Name is required"],
+	},
+	location: {
+		type: String,
+		required: [true, "Location is required"],
+	},
+	taxID: {
+		type: String,
+		required: [true, "A taxID is required"],
 	},
 });
 const PropertyModel = mongoose.model("PropertyModel", PropertySchema);
