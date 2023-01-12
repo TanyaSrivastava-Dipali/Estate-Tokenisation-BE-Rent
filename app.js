@@ -1,8 +1,11 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable func-names */
 import express from "express";
 import morgan from "morgan";
 import rateLimiter from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import hpp from "hpp";
+import cors from "cors";
 // eslint-disable-next-line import/extensions
 import voterRouter from "./routes/voterRoutes.js";
 // eslint-disable-next-line import/extensions
@@ -27,6 +30,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(hpp());
+
+app.use(cors());
+app.options("*", cors());
 
 app.use("/api/propose", proposeRouter);
 app.use("/api/vote", voterRouter);
