@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable consistent-return */
 /* eslint-disable import/extensions */
-// import { Network, Alchemy } from "alchemy-sdk";
+import { Network, Alchemy } from "alchemy-sdk";
 import catchAsync from "../utils/catchAsync.js";
 import ProposalModel from "../models/proposalModel.js";
 import votingModel from "../models/votingModel.js";
@@ -9,27 +10,27 @@ import { filterObj } from "../utils/helper.js";
 
 const getVotersDetails = catchAsync(async (req, res, next) => {
 	// alchemy settings
-	// const settings = {
-	// 	apiKey: "-Pa7HS3UWzLPuQ0D1Ttf9mSPcNfrXtvM", // Replace with your Alchemy API Key.
-	// 	network: Network.MATIC_MUMBAI, // Replace with your network.
-	// };
-	// const alchemy = new Alchemy(settings);
+	const settings = {
+		apiKey: "-Pa7HS3UWzLPuQ0D1Ttf9mSPcNfrXtvM", // Replace with your Alchemy API Key.
+		network: Network.MATIC_MUMBAI, // Replace with your network.
+	};
+	const alchemy = new Alchemy(settings);
 
 	// filter the req.body data
-	const newBody = filterObj(req.body, "tokenId", "target", "owner");
+	const newBody = filterObj(req.query, "tokenId", "target", "owner");
 
-	if (!newBody.tokenId || !newBody.target) {
-		return next("tokenId and target is required");
+	if (newBody.tokenId && newBody.owner && !newBody.target) {
+		return next("tokenId , target is required");
 	}
-	//   const { owners } = await alchemy.nft.getOwnersForNft(
-	//     "0x915A6327Ea279CCb70ba71Db9cb49E2a8935bF8B",
-	//     req.body.tokenId
-	//   );
+	const { owners } = await alchemy.nft.getOwnersForNft(
+		"0xC7a999Fb934b2585d546D667Dc4A49d72012B676",
+		newBody.tokenId
+	);
 
-	const owners = [
-		"0x271a102ab92f9584f3a83db17f3d766e1719ee3e",
-		"0x2c2349ba934b4d50cd9c1335d7009b92bf8e4661",
-	];
+	// const owners = [
+	// 	"0x271a102ab92f9584f3a83db17f3d766e1719ee3e",
+	// 	"0x2c2349ba934b4d50cd9c1335d7009b92bf8e4661",
+	// ];
 	//   console.log(req.body);
 	const merkleTree = new MogulDAOMarkleTree(owners);
 	let result;
