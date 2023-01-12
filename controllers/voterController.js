@@ -19,9 +19,19 @@ const getVotersDetails = catchAsync(async (req, res, next) => {
 	// filter the req.body data
 	const newBody = filterObj(req.query, "tokenId", "target", "owner");
 
-	if (newBody.tokenId && newBody.owner && !newBody.target) {
-		return next("tokenId , target is required");
+	if (!newBody.target) {
+		return next("target is required");
 	}
+	if (
+		(newBody.target === "voterAddresses" || newBody.target === "voterRootHash") &&
+		!newBody.tokenId
+	) {
+		return next("tokenId is required");
+	}
+	if (newBody.target === "voterProof" && !newBody.tokenId && !newBody.owner) {
+		return next("tokenId , owner is required");
+	}
+
 	const { owners } = await alchemy.nft.getOwnersForNft(
 		"0xC7a999Fb934b2585d546D667Dc4A49d72012B676",
 		newBody.tokenId
