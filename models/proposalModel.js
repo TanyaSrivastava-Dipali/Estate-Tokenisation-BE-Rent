@@ -1,22 +1,14 @@
 import mongoose from "mongoose";
 
 const proposalSchema = new mongoose.Schema({
-	onChainProposalId: {
+	proposalIdHash: {
 		type: String,
 		unique: true,
 		required: [true, "Proposal Id is required"],
 	},
-	proposalProofLink: {
-		type: String,
-		required: [true, "Proposal proof is required"],
-	},
-	withDrawFundsFrom: {
-		type: String,
-		required: [true, "WithDrawFundsFrom is required"],
-	},
-	amount: {
-		type: String,
-		required: [true, "Proposal amount is required"],
+	ownerListAtProposal: {
+		type: [String],
+		required: [true, "Owner list is required"],
 	},
 	isExecuted: {
 		type: Boolean,
