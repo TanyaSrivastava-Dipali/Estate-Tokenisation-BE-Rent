@@ -2,16 +2,19 @@
 /* eslint-disable consistent-return */
 /* eslint-disable import/extensions */
 import { Network, Alchemy } from "alchemy-sdk";
+import dotenv from "dotenv";
 import catchAsync from "../utils/catchAsync.js";
 import ProposalModel from "../models/proposalModel.js";
 import votingModel from "../models/votingModel.js";
 import MogulDAOMarkleTree from "../utils/markleTree.js";
 import { filterObj } from "../utils/helper.js";
 
+dotenv.config({ path: "../.env" });
+
 const getVotersDetails = catchAsync(async (req, res, next) => {
 	// alchemy settings
 	const settings = {
-		apiKey: "-Pa7HS3UWzLPuQ0D1Ttf9mSPcNfrXtvM", // Replace with your Alchemy API Key.
+		apiKey: process.env.ALCHEMY_API_KEY, // Replace with your Alchemy API Key.
 		network: Network.MATIC_MUMBAI, // Replace with your network.
 	};
 	const alchemy = new Alchemy(settings);
@@ -33,7 +36,7 @@ const getVotersDetails = catchAsync(async (req, res, next) => {
 	}
 
 	const { owners } = await alchemy.nft.getOwnersForNft(
-		"0xC7a999Fb934b2585d546D667Dc4A49d72012B676",
+		process.env.PROPERTY_TOKEN_ID,
 		newBody.tokenId
 	);
 

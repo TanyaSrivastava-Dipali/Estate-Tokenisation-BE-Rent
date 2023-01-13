@@ -1,11 +1,15 @@
 import keccak256 from "keccak256";
 import { Alchemy, Network } from "alchemy-sdk";
+import dotenv from "dotenv";
+
 // eslint-disable-next-line import/extensions
 import ProposalModel from "../models/proposalModel.js";
 // eslint-disable-next-line import/extensions
 import catchAsync from "../utils/catchAsync.js";
 // eslint-disable-next-line import/extensions
 import { filterObj } from "../utils/helper.js";
+
+dotenv.config({ path: "../.env" });
 
 // eslint-disable-next-line consistent-return
 const addNewProposal = catchAsync(async (req, res, next) => {
@@ -15,12 +19,12 @@ const addNewProposal = catchAsync(async (req, res, next) => {
 	}
 	const proposalIdHash = keccak256(newBody.tokenId, newBody.onChainProposalId);
 	const settings = {
-		apiKey: "-Pa7HS3UWzLPuQ0D1Ttf9mSPcNfrXtvM", // Replace with your Alchemy API Key.
+		apiKey: process.env.ALCHEMY_API_KEY, // Replace with your Alchemy API Key.
 		network: Network.MATIC_MUMBAI, // Replace with your network.
 	};
 	const alchemy = new Alchemy(settings);
 	const { owners } = await alchemy.nft.getOwnersForNft(
-		"0xC7a999Fb934b2585d546D667Dc4A49d72012B676",
+		process.env.PROPERTY_TOKEN_ID,
 		newBody.tokenId
 	);
 	// eslint-disable-next-line dot-notation
