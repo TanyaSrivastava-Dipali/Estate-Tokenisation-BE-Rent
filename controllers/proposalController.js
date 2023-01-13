@@ -17,7 +17,9 @@ const addNewProposal = catchAsync(async (req, res, next) => {
 	if (newBody.tokenId === undefined || newBody.onChainProposalId === undefined) {
 		return next("tokenId,onChainProposalId are required to create a new proposal");
 	}
-	const proposalIdHash = keccak256(newBody.tokenId, newBody.onChainProposalId);
+	const proposalIdHash = keccak256(
+		newBody.tokenId.toString() + newBody.onChainProposalId.toString()
+	);
 	const settings = {
 		apiKey: process.env.ALCHEMY_API_KEY, // Replace with your Alchemy API Key.
 		network: Network.MATIC_MUMBAI, // Replace with your network.
