@@ -20,7 +20,10 @@ const getVotersDetails = catchAsync(async (req, res, next) => {
 	if (!newBody.target) {
 		return next("target is required");
 	}
-	if (newBody.target === "voterRootHash" && !newBody.tokenId) {
+	if (
+		(newBody.target === "voterRootHash" || newBody.target === "ownerAddresses") &&
+		!newBody.tokenId
+	) {
 		return next("tokenId is required");
 	}
 	if (
@@ -33,12 +36,22 @@ const getVotersDetails = catchAsync(async (req, res, next) => {
 	}
 
 	let result;
-	// if (newBody.target === "voterAddresses") {
-	// 	result = {
-	// 		length: owners.length,
-	// 		data: owners,
-	// 	};
-	// }
+	if (newBody.target === "ownerAddresses") {
+		// alchemy settings
+		const settings = {
+			apiKey: process.env.ALCHEMY_API_KEY, // Replace with your Alchemy API Key.
+			network: Network.MATIC_MUMBAI, // Replace with your network.
+		};
+		const alchemy = new Alchemy(settings);
+		const { owners } = await alchemy.nft.getOwnersForNft(
+			process.env.PROPERTY_TOKEN_ADDRESS,
+			newBody.tokenId
+		);
+		result = {
+			length: owners.length,
+			data: owners,
+		};
+	}
 	if (newBody.target === "voterRootHash") {
 		// alchemy settings
 		const settings = {
