@@ -14,7 +14,7 @@ dotenv.config({ path: "../.env" });
 const getVotersDetails = catchAsync(async (req, res, next) => {
 	// alchemy settings
 	const settings = {
-		apiKey: process.env.ALCHEMY_API_KEY, // Replace with your Alchemy API Key.
+		apiKey: process.env.PROPERTY_TOKEN_ADDRESS, // Replace with your Alchemy API Key.
 		network: Network.MATIC_MUMBAI, // Replace with your network.
 	};
 	const alchemy = new Alchemy(settings);

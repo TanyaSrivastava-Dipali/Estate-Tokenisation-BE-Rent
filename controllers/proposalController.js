@@ -24,7 +24,7 @@ const addNewProposal = catchAsync(async (req, res, next) => {
 	};
 	const alchemy = new Alchemy(settings);
 	const { owners } = await alchemy.nft.getOwnersForNft(
-		process.env.PROPERTY_TOKEN_ID,
+		process.env.PROPERTY_TOKEN_ADDRESS,
 		newBody.tokenId
 	);
 	// eslint-disable-next-line dot-notation
