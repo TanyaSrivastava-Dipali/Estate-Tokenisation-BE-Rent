@@ -12,7 +12,10 @@ process.on("uncaughtException", (err) => {
 dotenv.config({ path: "./.env" });
 
 // local DB connection
-const DB = process.env.DB_LOCAL;
+// const DB = process.env.DB_LOCAL;
+
+// cloud DB connection
+const DB = process.env.DB_CLOUD;
 
 // to suppress a warning
 mongoose.set("strictQuery", false);
